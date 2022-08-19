@@ -1,43 +1,41 @@
-import { Button, MenuItem, Select, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Head from "next/head";
-import styles from "../../styles/Home.module.css";
+import Config from "../../src/pages/api/config/config.json";
+import FormBuilder from "../components/form-builder/form-builder.component";
 
 export default function Home() {
+  const { formName, fields } = Config;
+
   return (
-    <div className={styles.container}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100vw",
+        height: "100vh",
+      }}
+    >
       <Head>
         <title>Dynamic forms</title>
       </Head>
 
-      <main className={styles.main}>
-        <Typography>Welcome to DYNAMIC FORMS</Typography>
-        <TextField
-          id="101"
-          name="productName"
-          label="Product Name"
-          type="text"
-        />
-        <TextField id="102" name="procedure" label="Procedure" type="text" />
-        <TextField
-          id="103"
-          name="creationDate"
-          label="Creation Date"
-          type="date"
-        />
-        <TextField
-          id="104"
-          name="unitsProduced"
-          label="units produced"
-          type="number"
-        />
-        <Select id="105" value={1} label="location">
-          <MenuItem value={1}>Boston</MenuItem>
-          <MenuItem value={2}>Houston</MenuItem>
-          <MenuItem value={3}>New York</MenuItem>
-          <MenuItem value={4}>Barcelona</MenuItem>
-        </Select>
-        <Button variant="outlined">Save</Button>
-      </main>
-    </div>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <FormBuilder formName={formName} fields={fields} values={0}/>
+      </Box>
+    </Box>
   );
 }
