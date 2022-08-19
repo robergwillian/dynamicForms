@@ -1,7 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import Config from './config/config.json'
+import Config from "./config/config.json";
 
-
-export default function handler(req, res) {
+export default (req, res) => {
   res.status(200).json(Config);
-}
+};
