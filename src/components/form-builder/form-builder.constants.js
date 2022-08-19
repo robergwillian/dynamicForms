@@ -4,3 +4,7 @@ export const FIELD_TYPES = {
   DATE: "date",
   SELECT: "select",
 };
+
+export const FIELD_TYPES_VARIANTS = {
+  OUTLINED: 'outlined',
+}

@@ -1,41 +1,63 @@
-import { Button, MenuItem, Select, Typography } from "@mui/material";
+import { Box, Button, MenuItem, Select, Typography } from "@mui/material";
+import { useId } from "react";
 import TextField from "../form-elements/textfield/textfield.component";
-import { FIELD_TYPES } from "./form-builder.constants";
+import { FIELD_TYPES, FIELD_TYPES_VARIANTS } from "./form-builder.constants";
 
 const FormBuilder = ({ formName, fields, values }) => {
-  // console.log({ fields });
 
   const renderFields = fields.map((field) => {
-    console.log({field})
-    switch (field.type) {
-      case FIELD_TYPES.TEXT || FIELD_TYPES.NUMBER || FIELD_TYPES.DATE:
+    if (
+      field.type === FIELD_TYPES.TEXT ||
+      field.type === FIELD_TYPES.NUMBER ||
+      field.type === FIELD_TYPES.DATE
+    ) {
+      return (
         <TextField
-          key={field.id}
+          id={field.id}
           fieldName={field.name}
           fieldType={field.type}
-        />;
-      case FIELD_TYPES.SELECT:
-        <Select id="105" value={1} label="location">
-          <MenuItem value={1}>Boston</MenuItem>
-          <MenuItem value={2}>Houston</MenuItem>
-          <MenuItem value={3}>New York</MenuItem>
-          <MenuItem value={4}>Barcelona</MenuItem>
-        </Select>;
-      default:
-        return "";
+          variant={FIELD_TYPES_VARIANTS.OUTLINED}
+        />
+      );
+    }
+
+    if (field.type === FIELD_TYPES.SELECT) {
+      return (
+        <Select
+          id={field.id}
+          name={field.name}
+          label={field.name}
+          type={field.type}
+          variant={FIELD_TYPES_VARIANTS.OUTLINED}
+        >
+          {field.options.map((option) => (
+            <MenuItem key={option.name} value={option.value}>
+              {option.name}
+            </MenuItem>
+          ))}
+        </Select>
+      );
     }
   });
-
 
   return (
     <>
       <Typography sx={{ m: 4 }}>{formName}</Typography>
-      {fields ? (
-        renderFields
-      ) : (
-        <Typography sx={{ m: 4 }}>No field was found</Typography>
-      )}
-      <Button variant="outlined">Save</Button>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-evenly",
+          height: "50vh",
+        }}
+      >
+        {fields ? (
+          renderFields
+        ) : (
+          <Typography sx={{ m: 4 }}>No field was found</Typography>
+        )}
+      </Box>
+      <Button variant={FIELD_TYPES_VARIANTS.OUTLINED}>Save</Button>
     </>
   );
 };
