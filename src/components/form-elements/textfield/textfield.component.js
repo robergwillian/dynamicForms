@@ -1,9 +1,14 @@
 import MuiTextField from "@mui/material/TextField";
 
-const TextField = ({ id, fieldName, fieldType }) => {
-  console.log({ id, fieldName, fieldType });
+const TextField = ({ id, fieldName, fieldType, value }) => {
   return (
-    <MuiTextField id={id} name={id} label={fieldName} type={fieldType} />
+    <MuiTextField
+      id={id}
+      name={id}
+      label={fieldName}
+      type={fieldType}
+      defaultValue={value}
+    />
   );
 };
 

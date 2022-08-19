@@ -1,7 +1,7 @@
 import { MenuItem, Select } from "@mui/material";
 import { FIELD_TYPES_VARIANTS } from "../../form-builder/form-builder.constants";
 
-const Dropdown = ({ id, name, type, options }) => {
+const Dropdown = ({ id, name, type, value, options }) => {
   return (
     <>
       <Select
@@ -9,6 +9,7 @@ const Dropdown = ({ id, name, type, options }) => {
         name={name}
         label={name}
         type={type}
+        defaultValue={value}
         variant={FIELD_TYPES_VARIANTS.OUTLINED}
       >
         {options.map((option) => (

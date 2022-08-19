@@ -30,9 +30,15 @@ const FormBuilder = ({ formName, fields, values }) => {
   //     },
   //   },
 
+  const getFieldValue = (id) => {
+    const fieldData = values?.data?.filter((field) => field.fieldId === id);
+    const value = fieldData[0]?.value;
 
-  // console.log(mapComponent['text'])
-  const renderFields = fields.map((field) => {
+    console.log({ value });
+    return value;
+  };
+
+  const renderFields = fields?.map((field) => {
     if (
       field.type === FIELD_TYPES.TEXT ||
       field.type === FIELD_TYPES.NUMBER ||
@@ -42,6 +48,7 @@ const FormBuilder = ({ formName, fields, values }) => {
         <TextField
           key={field.id}
           id={field.id}
+          value={getFieldValue(field.id)}
           fieldName={field.name}
           fieldType={field.type}
           variant={FIELD_TYPES_VARIANTS.OUTLINED}
@@ -56,6 +63,7 @@ const FormBuilder = ({ formName, fields, values }) => {
           id={field.id}
           name={field.name}
           type={field.type}
+          value={getFieldValue(field.id)}
           options={field.options}
         />
       );

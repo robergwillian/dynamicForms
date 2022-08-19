@@ -1,12 +1,11 @@
 import { Box } from "@mui/material";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import Config from "../../src/pages/api/config/config.json";
 import FormBuilder from "../components/form-builder/form-builder.component";
 
 export default function Home() {
   const [formConfig, setFormConfig] = useState({});
-  const { formName, fields } = Config;
+  const [formData, setFormData] = useState({});
 
   const getFormElements = async () => {
     const response = await fetch(
@@ -15,11 +14,17 @@ export default function Home() {
     setFormConfig(response);
   };
 
+  const getFormData = async () => {
+    const response = await fetch(
+      "http://localhost:3000/api/get-form-data"
+    ).then((response) => response.json());
+    setFormData(response);
+  };
+
   useEffect(() => {
     getFormElements();
+    getFormData();
   }, []);
-
-  console.log({ formConfig });
 
   return (
     <Box
@@ -42,7 +47,11 @@ export default function Home() {
           flexDirection: "column",
         }}
       >
-        <FormBuilder formName={formName} fields={fields} values={0} />
+        <FormBuilder
+          formName={formConfig.formName}
+          fields={formConfig.fields}
+          values={formData}
+        />
       </Box>
     </Box>
   );
