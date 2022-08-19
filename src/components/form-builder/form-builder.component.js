@@ -4,6 +4,34 @@ import TextField from "../form-elements/textfield/textfield.component";
 import { FIELD_TYPES, FIELD_TYPES_VARIANTS } from "./form-builder.constants";
 
 const FormBuilder = ({ formName, fields, values }) => {
+  // const mapComponent = {
+  //   [FIELD_TYPES.TEXT]: {
+  //     component: TextField,
+  //     itemProps: {
+  //       type: FIELD_TYPES.TEXT,
+  //     },},
+  //     [FIELD_TYPES.NUMBER]: {
+  //       component: TextField,
+  //       itemProps: {
+  //         type: FIELD_TYPES.NUMBER,
+  //       },
+  //     },
+  //     [FIELD_TYPES.DATE]: {
+  //       component: TextField,
+  //       itemProps: {
+  //         type: FIELD_TYPES.DATE,
+  //       },
+  //     },
+  //     [FIELD_TYPES.SELECT]: {
+  //       component: TextField,
+  //       itemProps: {
+  //         type: FIELD_TYPES.SELECT,
+  //       },
+  //     },
+  //   },
+
+
+  // console.log(mapComponent['text'])
   const renderFields = fields.map((field) => {
     if (
       field.type === FIELD_TYPES.TEXT ||
