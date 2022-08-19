@@ -1,10 +1,9 @@
 import { Box, Button, MenuItem, Select, Typography } from "@mui/material";
-import { useId } from "react";
+import Dropdown from "../form-elements/select/select.component";
 import TextField from "../form-elements/textfield/textfield.component";
 import { FIELD_TYPES, FIELD_TYPES_VARIANTS } from "./form-builder.constants";
 
 const FormBuilder = ({ formName, fields, values }) => {
-
   const renderFields = fields.map((field) => {
     if (
       field.type === FIELD_TYPES.TEXT ||
@@ -13,6 +12,7 @@ const FormBuilder = ({ formName, fields, values }) => {
     ) {
       return (
         <TextField
+          key={field.id}
           id={field.id}
           fieldName={field.name}
           fieldType={field.type}
@@ -23,19 +23,13 @@ const FormBuilder = ({ formName, fields, values }) => {
 
     if (field.type === FIELD_TYPES.SELECT) {
       return (
-        <Select
+        <Dropdown
+          key={field.id}
           id={field.id}
           name={field.name}
-          label={field.name}
           type={field.type}
-          variant={FIELD_TYPES_VARIANTS.OUTLINED}
-        >
-          {field.options.map((option) => (
-            <MenuItem key={option.name} value={option.value}>
-              {option.name}
-            </MenuItem>
-          ))}
-        </Select>
+          options={field.options}
+        />
       );
     }
   });
