@@ -5,6 +5,7 @@ import { styles } from "../../styles/index.styles";
 import FormBuilder from "../components/form-builder/form-builder.component";
 import { getFormData, getFormElements } from "../services/api";
 import { FormContext } from "../context/form-context";
+import JSONLoader from "../components/json-loader/json-loader.component";
 
 export default function Home() {
   const [formConfig, setFormConfig] = useState({});
@@ -15,9 +16,9 @@ export default function Home() {
     getFormData().then((result) => setFormData(result));
   }, []);
 
-  const handleSubmit = (event, data) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    console.log({ formData, formConfig });
+    console.log({ event: event.target });
   };
 
   const handleChange = (id, event) => {
@@ -27,6 +28,8 @@ export default function Home() {
       console.log({ event: event.target.value });
     }
   };
+
+  console.log({ formConfig: formConfig });
   return (
     <Box sx={styles.container}>
       <Head>
@@ -43,6 +46,7 @@ export default function Home() {
             />
           </form>
         </FormContext.Provider>
+        <JSONLoader setFormConfig={setFormConfig} />
       </Box>
     </Box>
   );
