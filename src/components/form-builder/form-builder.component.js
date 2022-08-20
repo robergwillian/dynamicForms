@@ -11,7 +11,7 @@ const FormBuilder = ({ formName, fields, values }) => {
   const { handleChange, handleSubmit } = useContext(FormContext);
 
   const getFieldValue = (id) => {
-    const [fieldData] = values?.data?.filter((field) => field.fieldId === id);
+    const [fieldData] = values?.data.filter((field) => field.fieldId === id);
     if (fieldData) return String(fieldData.value);
   };
 
@@ -59,10 +59,7 @@ const FormBuilder = ({ formName, fields, values }) => {
           <Typography sx={styles.formTitle}>No field was found</Typography>
         )}
       </Box>
-      <Button
-        type="submit"
-        variant={FIELD_TYPES_VARIANTS.OUTLINED}
-      >
+      <Button type="submit" variant={FIELD_TYPES_VARIANTS.OUTLINED}>
         Save
       </Button>
     </>
@@ -73,6 +70,10 @@ FormBuilder.propTypes = {
   formName: PropTypes.string,
   fields: PropTypes.array,
   values: PropTypes.object,
+};
+
+FormBuilder.defaultProps = {
+  values: { data: [] },
 };
 
 export default FormBuilder;
