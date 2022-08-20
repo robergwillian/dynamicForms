@@ -2,7 +2,7 @@ import { MenuItem, Select } from "@mui/material";
 import { FIELD_TYPES_VARIANTS } from "../../form-builder/form-builder.constants";
 import PropTypes from "prop-types";
 
-const Dropdown = ({ name, type, value, options }) => {
+const Dropdown = ({ name, type, value, options, onChange }) => {
   return (
     <>
       <Select
@@ -11,6 +11,7 @@ const Dropdown = ({ name, type, value, options }) => {
         type={type}
         defaultValue={value}
         variant={FIELD_TYPES_VARIANTS.OUTLINED}
+        onChange={onChange}
       >
         {options.map((option) => (
           <MenuItem key={option.name} value={option.value}>
@@ -27,6 +28,7 @@ Dropdown.propTypes = {
   type: PropTypes.string,
   value: PropTypes.string,
   options: PropTypes.array,
+  onChange: PropTypes.func,
 };
 
 export default Dropdown;
