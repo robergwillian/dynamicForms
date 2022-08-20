@@ -32,10 +32,7 @@ const FormBuilder = ({ formName, fields, values }) => {
 
   const getFieldValue = (id) => {
     const fieldData = values?.data?.filter((field) => field.fieldId === id);
-    const value = fieldData[0]?.value;
-
-    console.log({ value });
-    return value;
+    return fieldData[0]?.value;
   };
 
   const renderFields = fields?.map((field) => {
