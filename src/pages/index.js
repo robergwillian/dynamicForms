@@ -9,14 +9,14 @@ export default function Home() {
 
   const getFormElements = async () => {
     const response = await fetch(
-      "http://localhost:3000/api/get-form-elements"
+      "api/get-form-elements"
     ).then((response) => response.json());
     setFormConfig(response);
   };
 
   const getFormData = async () => {
     const response = await fetch(
-      "http://localhost:3000/api/get-form-data"
+      "api/get-form-data"
     ).then((response) => response.json());
     setFormData(response);
   };
