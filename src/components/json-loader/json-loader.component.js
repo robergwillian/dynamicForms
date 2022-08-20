@@ -1,5 +1,4 @@
-import { Box, Typography } from "@mui/material";
-import { Input } from "@mui/material";
+import { Box, Typography, Input } from "@mui/material";
 import { styles } from "./json-loader.styles";
 
 const JSONLoader = ({ setFormConfig }) => {
