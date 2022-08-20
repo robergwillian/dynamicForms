@@ -62,7 +62,6 @@ const FormBuilder = ({ formName, fields, values }) => {
       <Button
         type="submit"
         variant={FIELD_TYPES_VARIANTS.OUTLINED}
-        // onClick={(event) => handleSubmit(event)}
       >
         Save
       </Button>

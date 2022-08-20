@@ -22,9 +22,9 @@ export default function Home() {
   };
 
   const handleChange = (id, event) => {
-    const field = formData?.data.filter((field) => id === field.fieldId);
+    const [field] = formData?.data.filter((field) => id === field.fieldId);
     if (field) {
-      console.log({ ID: field[0]?.fieldId });
+      console.log({ ID: field.fieldId });
       console.log({ event: event.target.value });
     }
   };
