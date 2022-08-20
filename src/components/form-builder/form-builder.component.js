@@ -2,12 +2,13 @@ import { Box, Button, MenuItem, Select, Typography } from "@mui/material";
 import Dropdown from "../form-elements/select/select.component";
 import TextField from "../form-elements/textfield/textfield.component";
 import { FIELD_TYPES, FIELD_TYPES_VARIANTS } from "./form-builder.constants";
+import PropTypes from "prop-types";
+import { styles } from "./form-builder.styles";
 
 const FormBuilder = ({ formName, fields, values }) => {
-
   const getFieldValue = (id) => {
     const fieldData = values?.data?.filter((field) => field.fieldId === id);
-    return fieldData[0]?.value;
+    return String(fieldData[0]?.value);
   };
 
   const renderFields = fields?.map((field) => {
@@ -19,10 +20,9 @@ const FormBuilder = ({ formName, fields, values }) => {
       return (
         <TextField
           key={field.id}
-          id={field.id}
           value={getFieldValue(field.id)}
-          fieldName={field.name}
-          fieldType={field.type}
+          name={field.name}
+          type={field.type}
           variant={FIELD_TYPES_VARIANTS.OUTLINED}
         />
       );
@@ -32,7 +32,6 @@ const FormBuilder = ({ formName, fields, values }) => {
       return (
         <Dropdown
           key={field.id}
-          id={field.id}
           name={field.name}
           type={field.type}
           value={getFieldValue(field.id)}
@@ -44,24 +43,23 @@ const FormBuilder = ({ formName, fields, values }) => {
 
   return (
     <>
-      <Typography sx={{ m: 4 }}>{formName}</Typography>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-          height: "50vh",
-        }}
-      >
+      <Typography sx={styles.formTitle}>{formName}</Typography>
+      <Box sx={styles.elementsWrapper}>
         {fields ? (
           renderFields
         ) : (
-          <Typography sx={{ m: 4 }}>No field was found</Typography>
+          <Typography sx={styles.formTitle}>No field was found</Typography>
         )}
       </Box>
       <Button variant={FIELD_TYPES_VARIANTS.OUTLINED}>Save</Button>
     </>
   );
+};
+
+FormBuilder.propTypes = {
+  formName: PropTypes.string,
+  fields: PropTypes.array,
+  values: PropTypes.object,
 };
 
 export default FormBuilder;

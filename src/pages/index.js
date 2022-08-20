@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import { styles } from "../../styles/index.styles";
 import FormBuilder from "../components/form-builder/form-builder.component";
 
 export default function Home() {
@@ -8,16 +9,16 @@ export default function Home() {
   const [formData, setFormData] = useState({});
 
   const getFormElements = async () => {
-    const response = await fetch(
-      "api/get-form-elements"
-    ).then((response) => response.json());
+    const response = await fetch("api/get-form-elements").then((response) =>
+      response.json()
+    );
     setFormConfig(response);
   };
 
   const getFormData = async () => {
-    const response = await fetch(
-      "api/get-form-data"
-    ).then((response) => response.json());
+    const response = await fetch("api/get-form-data").then((response) =>
+      response.json()
+    );
     setFormData(response);
   };
 
@@ -27,26 +28,12 @@ export default function Home() {
   }, []);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "100vw",
-        height: "100vh",
-      }}
-    >
+    <Box sx={styles.container}>
       <Head>
         <title>Dynamic forms</title>
       </Head>
 
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+      <Box sx={styles.formContainer}>
         <FormBuilder
           formName={formConfig.formName}
           fields={formConfig.fields}
