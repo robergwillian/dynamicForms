@@ -1,4 +1,5 @@
 import { Box, Typography, Input } from "@mui/material";
+import PropTypes from "prop-types";
 import { styles } from "./json-loader.styles";
 
 const JSONLoader = ({ setFormConfig }) => {
@@ -16,6 +17,10 @@ const JSONLoader = ({ setFormConfig }) => {
       <Input type="file" onChange={(e) => handleChange(e)} />
     </Box>
   );
+};
+
+JSONLoader.propTypes = {
+  setFormConfig: PropTypes.func,
 };
 
 export default JSONLoader;

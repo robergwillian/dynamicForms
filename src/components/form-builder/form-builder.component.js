@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Box, Button, MenuItem, Select, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import Dropdown from "../form-elements/select/select.component";
 import TextField from "../form-elements/textfield/textfield.component";
 import { FIELD_TYPES, FIELD_TYPES_VARIANTS } from "./form-builder.constants";

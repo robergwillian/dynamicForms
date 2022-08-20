@@ -7,14 +7,9 @@ import { getFormData, getFormElements } from "../services/api";
 import { FormContext } from "../context/form-context";
 import JSONLoader from "../components/json-loader/json-loader.component";
 
-export default function Home() {
-  const [formConfig, setFormConfig] = useState({});
-  const [formData, setFormData] = useState({});
-
-  useEffect(() => {
-    getFormElements().then((result) => setFormConfig(result));
-    getFormData().then((result) => setFormData(result));
-  }, []);
+export default function Home({ formConfigJson, formDataJson }) {
+  const [formConfig, setFormConfig] = useState(formConfigJson);
+  const [formData, setFormData] = useState(formDataJson);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -50,3 +45,16 @@ export default function Home() {
     </Box>
   );
 }
+
+export const getStaticProps = async () => {
+  const formConfigJson = await getFormElements();
+  const formDataJson = await getFormData();
+
+  return {
+    props: {
+      formConfigJson,
+      formDataJson,
+    },
+    revalidate: 60 * 60 * 24, // 24 hours
+  };
+};
