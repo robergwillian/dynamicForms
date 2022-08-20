@@ -29,7 +29,6 @@ export default function Home() {
     }
   };
 
-  console.log({ formConfig: formConfig });
   return (
     <Box sx={styles.container}>
       <Head>

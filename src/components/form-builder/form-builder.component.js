@@ -9,9 +9,10 @@ import { FormContext } from "../../context/form-context";
 
 const FormBuilder = ({ formName, fields, values }) => {
   const { handleChange, handleSubmit } = useContext(FormContext);
+
   const getFieldValue = (id) => {
-    const fieldData = values?.data?.filter((field) => field.fieldId === id);
-    return String(fieldData[0]?.value);
+    const [fieldData] = values?.data?.filter((field) => field.fieldId === id);
+    if (fieldData) return String(fieldData.value);
   };
 
   const renderFields = fields?.map((field) => {

@@ -7,15 +7,13 @@ const JSONLoader = ({ setFormConfig }) => {
     const fileReader = new FileReader();
     fileReader.readAsText(e.target.files[0]);
     fileReader.onload = (event) => {
-      setFormConfig(JSON.parse(event.target.result), () => {
-        console.log(JSON.parse(event.target.result));
-      });
+      setFormConfig(JSON.parse(event.target.result));
     };
   };
 
   return (
     <Box sx={styles.loaderWrapper}>
-      <Typography>Upload Json file</Typography>
+      <Typography>Upload form config file (JSON)</Typography>
       <Input type="file" onChange={(e) => handleChange(e)} />
     </Box>
   );
