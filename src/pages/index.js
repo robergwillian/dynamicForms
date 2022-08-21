@@ -13,7 +13,7 @@ export default function Home({ formConfigJson, formDataJson }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    saveFormData(formData);
+    saveFormData(formData).then(() => alert("Form values saved"));
   };
 
   const handleChange = (id, event) => {
