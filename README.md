@@ -16,7 +16,7 @@ NEXT_PUBLIC_HOST=http://localhost:3000
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-The app gets its initial form config and values from the API.
+The app gets its initial form config and values from the API throught getServerSideProps.
 
 You can edit the field values and save them ( This will send a post request to the API and overwrite the original data.json file in the backend)
 
