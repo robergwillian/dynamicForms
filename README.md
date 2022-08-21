@@ -55,7 +55,7 @@ You can also load a new form config by uploading a JSON file in the following fo
 ```
 * at the time of this writing the following field types are supported: TextField ( text, number, date ), and Select from MUI.
 
-### Future changes and improvments:
+### Future changes and improvements:
 
 * Add unit tests
 * Add storybook to compose the components that would be used on the forms
