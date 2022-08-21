@@ -6,6 +6,7 @@ import { FIELD_TYPES, FIELD_TYPES_VARIANTS } from "./form-builder.constants";
 import PropTypes from "prop-types";
 import { styles } from "./form-builder.styles";
 import { FormContext } from "../../context/form-context";
+import { format } from "date-fns";
 
 const fieldsElements = {
   [`${FIELD_TYPES.TEXT} ${FIELD_TYPES.NUMBER} ${FIELD_TYPES.DATE}`]: ({
@@ -42,6 +43,8 @@ const FormBuilder = ({ formName, fields, values }) => {
     });
   });
 
+  const lastSaveDate = format(new Date(values.dateSaved), "MM/dd/yyyy");
+
   return (
     <>
       <Typography sx={styles.formTitle}>{formName}</Typography>
@@ -59,6 +62,7 @@ const FormBuilder = ({ formName, fields, values }) => {
       >
         Save
       </Button>
+      <Typography>Last Saved: {lastSaveDate}</Typography>
     </>
   );
 };
