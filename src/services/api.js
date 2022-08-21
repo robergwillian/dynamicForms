@@ -17,6 +17,7 @@ export const getFormData = async () => {
 export const saveFormData = async (formData) => {
   try {
     const res = await fetch(`${BASE_URL}/api/get-form-data`, {
+      mode: "cors",
       method: "POST",
       body: JSON.stringify(formData),
     });
