@@ -7,6 +7,7 @@ import { styles } from "./form-builder.styles";
 import { format } from "date-fns";
 import { FormProvider, useForm } from "react-hook-form";
 import { useDynamicForm } from "hooks/form.hooks";
+import { useState } from "react";
 
 const fieldsElements = {
   [`${FIELD_TYPES.TEXT} ${FIELD_TYPES.NUMBER} ${FIELD_TYPES.DATE}`]: ({
@@ -20,8 +21,17 @@ const fieldsElements = {
 
 const FormBuilder = ({ formSchema, values }) => {
   const { formName, fields } = formSchema;
-  const { handleSubmit } = useDynamicForm();
+
+  const [dateSaved, setDateSaved] = useState(values.dateSaved);
+  const { handleSubmit } = useDynamicForm((date) => setDateSaved(date));
+  const lastSaveDate = format(new Date(dateSaved), "MM/dd/yyyy");
+
   const formMethods = useForm();
+
+  const {
+    formState: { isDirty },
+  } = formMethods;
+
   const getFieldValue = (id) => {
     const [fieldData] =
       values.data.filter((field) => field.fieldId === id) || [];
@@ -46,8 +56,6 @@ const FormBuilder = ({ formSchema, values }) => {
     });
   });
 
-  const lastSaveDate = format(new Date(values.dateSaved), "MM/dd/yyyy");
-
   return (
     <FormProvider control={formMethods.control}>
       <form onSubmit={formMethods.handleSubmit(handleSubmit)}>
@@ -59,7 +67,11 @@ const FormBuilder = ({ formSchema, values }) => {
             <Typography sx={styles.formTitle}>No field was found</Typography>
           )}
         </Box>
-        <Button type="submit" variant={FIELD_TYPES_VARIANTS.OUTLINED}>
+        <Button
+          disabled={!isDirty}
+          type="submit"
+          variant={FIELD_TYPES_VARIANTS.OUTLINED}
+        >
           Save
         </Button>
         <Typography>Last Saved: {lastSaveDate}</Typography>
