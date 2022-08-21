@@ -8,6 +8,12 @@ npm run dev
 yarn dev
 ```
 
+Make sure you have a .env.local file with the following: 
+
+```bash
+NEXT_PUBLIC_HOST=http://localhost:3000
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 The app gets its initial form config and values from the API.
