@@ -1,4 +1,4 @@
-const BASE_URL = process.env.HOST;
+const BASE_URL = process.env.NEXT_PUBLIC_HOST;
 
 export const getFormElements = async () => {
   const response = await fetch(`${BASE_URL}/api/get-form-elements`).then(
@@ -16,7 +16,7 @@ export const getFormData = async () => {
 
 export const saveFormData = async (formData) => {
   try {
-    let res = await fetch(`http://localhost:3000/api/get-form-data`, {
+    const res = await fetch(`${BASE_URL}/api/get-form-data`, {
       method: "POST",
       body: JSON.stringify(formData),
     });
