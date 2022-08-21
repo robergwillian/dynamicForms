@@ -27,7 +27,6 @@ const TextField = ({ id, label, name, type, defaultValue, ...props }) => {
       name={name}
       label={label}
       type={type}
-      {...(type === FIELD_TYPES.DATE && { InputLabelProps: { shrink: true } })}
       {...props}
     />
   );
