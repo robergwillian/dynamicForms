@@ -1,23 +1,33 @@
 import MuiTextField from "@mui/material/TextField";
-import { formatDate } from "../../../utils/date.util";
-import { FIELD_TYPES } from "../../form-builder/form-builder.constants";
+import { formatDate } from "_utils/date.util";
+import { FIELD_TYPES } from "_components/form-builder/form-builder.constants";
 import PropTypes from "prop-types";
+import { useController, useFormContext } from "react-hook-form";
 
-const TextField = ({ id, name, type, value, onChange }) => {
+const TextField = ({ id, label, name, type, defaultValue, ...props }) => {
   const isDateField = type === FIELD_TYPES.DATE;
-
-  if (isDateField) {
-    var date = formatDate(value);
-  }
+  const { control, register } = useFormContext();
+  const {
+    field: { ref, onChange, value },
+  } = useController({
+    register,
+    control,
+    name,
+    defaultValue: isDateField ? formatDate(defaultValue) : defaultValue,
+  });
 
   return (
     <MuiTextField
+      fullWidth
+      value={value}
+      ref={ref}
+      onChange={onChange}
       id={id}
       name={name}
-      label={name}
+      label={label}
       type={type}
-      defaultValue={isDateField ? date : value}
-      onChange={onChange}
+      {...(type === FIELD_TYPES.DATE && { InputLabelProps: { shrink: true } })}
+      {...props}
     />
   );
 };

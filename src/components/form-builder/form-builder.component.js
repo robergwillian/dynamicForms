@@ -1,12 +1,12 @@
-import { useContext } from "react";
 import { Box, Button, MenuItem, Select, Typography } from "@mui/material";
-import Dropdown from "../form-elements/select/select.component";
-import TextField from "../form-elements/textfield/textfield.component";
+import Dropdown from "_components/form-elements/select/select.component";
+import TextField from "_components/form-elements/textfield/textfield.component";
 import { FIELD_TYPES, FIELD_TYPES_VARIANTS } from "./form-builder.constants";
 import PropTypes from "prop-types";
 import { styles } from "./form-builder.styles";
-import { FormContext } from "../../context/form-context";
 import { format } from "date-fns";
+import { FormProvider, useForm } from "react-hook-form";
+import { useDynamicForm } from "hooks/form.hooks";
 
 const fieldsElements = {
   [`${FIELD_TYPES.TEXT} ${FIELD_TYPES.NUMBER} ${FIELD_TYPES.DATE}`]: ({
@@ -18,52 +18,53 @@ const fieldsElements = {
   ),
 };
 
-const FormBuilder = ({ formName, fields, values }) => {
-  const { handleChange, handleSubmit } = useContext(FormContext);
-
+const FormBuilder = ({ formSchema, values }) => {
+  const { formName, fields } = formSchema;
+  const { handleSubmit } = useDynamicForm();
+  const formMethods = useForm();
   const getFieldValue = (id) => {
     const [fieldData] =
       values.data.filter((field) => field.fieldId === id) || [];
     if (fieldData) return String(fieldData.value);
   };
 
-  const renderFields = fields?.map((field) => {
+  const renderFields = fields.map((field) => {
     const fieldType = new RegExp(field.type);
     const getField = Object.keys(fieldsElements).filter((key) =>
       fieldType.test(key)
     );
+    formMethods.register(`fieldIds.${field.name}`, { value: field.id });
+
     return fieldsElements[getField]?.({
       field,
       key: field.id,
       type: field.type,
       name: field.name,
+      label: field.name,
       id: String(field.id),
-      value: getFieldValue(field.id),
-      onChange: (event) => handleChange(field.id, event),
+      defaultValue: getFieldValue(field.id),
     });
   });
 
   const lastSaveDate = format(new Date(values.dateSaved), "MM/dd/yyyy");
 
   return (
-    <>
-      <Typography sx={styles.formTitle}>{formName}</Typography>
-      <Box sx={styles.elementsWrapper}>
-        {fields ? (
-          renderFields
-        ) : (
-          <Typography sx={styles.formTitle}>No field was found</Typography>
-        )}
-      </Box>
-      <Button
-        type="submit"
-        variant={FIELD_TYPES_VARIANTS.OUTLINED}
-        onClick={(event) => handleSubmit(event)}
-      >
-        Save
-      </Button>
-      <Typography>Last Saved: {lastSaveDate}</Typography>
-    </>
+    <FormProvider control={formMethods.control}>
+      <form onSubmit={formMethods.handleSubmit(handleSubmit)}>
+        <Typography sx={styles.formTitle}>{formName}</Typography>
+        <Box sx={styles.elementsWrapper}>
+          {fields.length > 0 ? (
+            renderFields
+          ) : (
+            <Typography sx={styles.formTitle}>No field was found</Typography>
+          )}
+        </Box>
+        <Button type="submit" variant={FIELD_TYPES_VARIANTS.OUTLINED}>
+          Save
+        </Button>
+        <Typography>Last Saved: {lastSaveDate}</Typography>
+      </form>
+    </FormProvider>
   );
 };
 
