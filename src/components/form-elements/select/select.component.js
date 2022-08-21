@@ -1,11 +1,13 @@
-import { MenuItem, Select } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { FIELD_TYPES_VARIANTS } from "../../form-builder/form-builder.constants";
 import PropTypes from "prop-types";
 
 const Dropdown = ({ name, type, value, options, onChange }) => {
   return (
-    <>
+    <FormControl>
+      <InputLabel id={`${name}-label`}>{name}</InputLabel>
       <Select
+        labelId={`${name}-label`}
         name={name}
         label={name}
         type={type}
@@ -19,7 +21,7 @@ const Dropdown = ({ name, type, value, options, onChange }) => {
           </MenuItem>
         ))}
       </Select>
-    </>
+    </FormControl>
   );
 };
 
