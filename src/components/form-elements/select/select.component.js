@@ -11,7 +11,7 @@ const Dropdown = ({ name, type, value, options, onChange }) => {
         name={name}
         label={name}
         type={type}
-        defaultValue={value}
+        value={value ? value : ""}
         variant={FIELD_TYPES_VARIANTS.OUTLINED}
         onChange={onChange}
       >

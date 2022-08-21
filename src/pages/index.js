@@ -1,11 +1,11 @@
 import { Box, FormControl } from "@mui/material";
 import Head from "next/head";
 import { useState } from "react";
-import { styles } from "../../styles/index.styles";
 import FormBuilder from "../components/form-builder/form-builder.component";
 import { getFormData, getFormElements, saveFormData } from "../services/api";
 import { FormContext } from "../context/form-context";
 import JSONLoader from "../components/json-loader/json-loader.component";
+import { styles } from "../styles/index.styles";
 
 export default function Home({ formConfigJson, formDataJson }) {
   const [formConfig, setFormConfig] = useState(formConfigJson);

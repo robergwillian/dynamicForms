@@ -63,6 +63,7 @@ You can also load a new form config by uploading a JSON file in the following fo
 
 ### Future changes and improvements:
 
+* Use React Hook Form for form control and validation
 * Add unit tests
 * Add storybook to compose the components that would be used on the forms
 * Be able to save form configs that are uploaded via API along with its values
