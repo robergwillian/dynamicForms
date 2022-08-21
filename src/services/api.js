@@ -13,3 +13,15 @@ export const getFormData = async () => {
   );
   return response;
 };
+
+export const saveFormData = async (formData) => {
+  try {
+    let res = await fetch(`http://localhost:3000/api/get-form-data`, {
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
+    console.log({ res });
+  } catch (err) {
+    console.log(err);
+  }
+};

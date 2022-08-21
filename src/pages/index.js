@@ -1,9 +1,9 @@
-import { Box } from "@mui/material";
+import { Box, FormControl } from "@mui/material";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { styles } from "../../styles/index.styles";
 import FormBuilder from "../components/form-builder/form-builder.component";
-import { getFormData, getFormElements } from "../services/api";
+import { getFormData, getFormElements, saveFormData } from "../services/api";
 import { FormContext } from "../context/form-context";
 import JSONLoader from "../components/json-loader/json-loader.component";
 
@@ -11,17 +11,30 @@ export default function Home({ formConfigJson, formDataJson }) {
   const [formConfig, setFormConfig] = useState(formConfigJson);
   const [formData, setFormData] = useState(formDataJson);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log({ event: event.target });
+    saveFormData(formData);
   };
 
   const handleChange = (id, event) => {
-    const [field] = formData?.data.filter((field) => id === field.fieldId);
-    if (field) {
-      console.log({ ID: field.fieldId });
-      console.log({ event: event.target.value });
-    }
+    const updatedFormData = formData?.data.map((field) => {
+      const { value, fieldId } = field;
+
+      if (id === fieldId) {
+        return {
+          fieldId: fieldId,
+          value: (value = event.target.value),
+        };
+      }
+      return { fieldId: fieldId, value: value };
+    });
+
+    const updatedValues = {
+      dateSaved: new Date().toString(),
+      data: [...updatedFormData],
+    };
+
+    setFormData(updatedValues);
   };
 
   return (
@@ -32,13 +45,13 @@ export default function Home({ formConfigJson, formDataJson }) {
 
       <Box sx={styles.formContainer}>
         <FormContext.Provider value={{ handleChange, handleSubmit }}>
-          <form onSubmit={handleSubmit}>
+          <FormControl>
             <FormBuilder
               formName={formConfig.formName}
               fields={formConfig.fields}
               values={formData}
             />
-          </form>
+          </FormControl>
         </FormContext.Provider>
         <JSONLoader setFormConfig={setFormConfig} />
       </Box>
