@@ -5,21 +5,24 @@ import FormBuilder from "_components/form-builder/form-builder.component";
 import JSONLoader from "_components/json-loader/json-loader.component";
 import { getFormData, getFormElements } from "_services/api";
 import { styles } from "_styles/index.styles";
+import ToastProvider from "_components/toast/toast.provider";
 
 export default function Home({ formConfigJson, formDataJson }) {
   const [formConfig, setFormConfig] = useState(formConfigJson);
 
   return (
-    <Box sx={styles.container}>
-      <Head>
-        <title>Dynamic forms</title>
-      </Head>
+    <ToastProvider>
+      <Box sx={styles.container}>
+        <Head>
+          <title>Dynamic forms</title>
+        </Head>
 
-      <Box sx={styles.formContainer}>
-        <FormBuilder formSchema={formConfig} values={formDataJson} />
-        <JSONLoader setFormConfig={setFormConfig} />
+        <Box sx={styles.formContainer}>
+          <FormBuilder formSchema={formConfig} values={formDataJson} />
+          <JSONLoader setFormConfig={setFormConfig} />
+        </Box>
       </Box>
-    </Box>
+    </ToastProvider>
   );
 }
 

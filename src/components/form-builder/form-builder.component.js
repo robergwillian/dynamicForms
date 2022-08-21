@@ -1,4 +1,4 @@
-import { Box, Button, MenuItem, Select, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import Dropdown from "_components/form-elements/select/select.component";
 import TextField from "_components/form-elements/textfield/textfield.component";
 import { FIELD_TYPES, FIELD_TYPES_VARIANTS } from "./form-builder.constants";
@@ -6,14 +6,17 @@ import PropTypes from "prop-types";
 import { styles } from "./form-builder.styles";
 import { format } from "date-fns";
 import { FormProvider, useForm } from "react-hook-form";
-import { useDynamicForm } from "hooks/form.hooks";
+import { useDynamicForm } from "_hooks/form.hooks";
 import { useState } from "react";
+import DatePicker from "_components/form-elements/date-picker/date-picker.component";
 
 const fieldsElements = {
-  [`${FIELD_TYPES.TEXT} ${FIELD_TYPES.NUMBER} ${FIELD_TYPES.DATE}`]: ({
-    field,
-    ...props
-  }) => <TextField variant={FIELD_TYPES_VARIANTS.OUTLINED} {...props} />,
+  [`${FIELD_TYPES.TEXT} ${FIELD_TYPES.NUMBER}`]: ({ field, ...props }) => (
+    <TextField variant={FIELD_TYPES_VARIANTS.OUTLINED} {...props} />
+  ),
+  [FIELD_TYPES.DATE]: ({ field, ...props }) => (
+    <DatePicker variant={FIELD_TYPES_VARIANTS.OUTLINED} {...props} />
+  ),
   [FIELD_TYPES.SELECT]: ({ field, ...props }) => (
     <Dropdown options={field.options || []} {...props} />
   ),
@@ -21,11 +24,9 @@ const fieldsElements = {
 
 const FormBuilder = ({ formSchema, values }) => {
   const { formName, fields } = formSchema;
-
   const [dateSaved, setDateSaved] = useState(values.dateSaved);
-  const { handleSubmit } = useDynamicForm((date) => setDateSaved(date));
-  const lastSaveDate = format(new Date(dateSaved), "MM/dd/yyyy");
 
+  const { handleSubmit } = useDynamicForm((date) => setDateSaved(date));
   const formMethods = useForm();
 
   const {
@@ -56,6 +57,8 @@ const FormBuilder = ({ formSchema, values }) => {
     });
   });
 
+  const lastSaveDate = format(new Date(dateSaved), "MM/dd/yyyy");
+
   return (
     <FormProvider control={formMethods.control}>
       <form onSubmit={formMethods.handleSubmit(handleSubmit)}>
@@ -68,9 +71,9 @@ const FormBuilder = ({ formSchema, values }) => {
           )}
         </Box>
         <Button
-          disabled={!isDirty}
           type="submit"
           variant={FIELD_TYPES_VARIANTS.OUTLINED}
+          disabled={!isDirty}
         >
           Save
         </Button>

@@ -3,6 +3,7 @@ import { formatDate } from "_utils/date.util";
 import { FIELD_TYPES } from "_components/form-builder/form-builder.constants";
 import PropTypes from "prop-types";
 import { useController, useFormContext } from "react-hook-form";
+import { format } from "date-fns";
 
 const TextField = ({ id, label, name, type, defaultValue, ...props }) => {
   const isDateField = type === FIELD_TYPES.DATE;

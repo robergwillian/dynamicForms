@@ -14,3 +14,7 @@ export const formatDate = (date) => {
 
   return `${year}-${month}-${day}`;
 };
+
+export const isValidDate = (date) => {
+  return date instanceof Date && isFinite(date);
+};
