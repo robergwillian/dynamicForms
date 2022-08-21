@@ -23,7 +23,7 @@ export default function Home({ formConfigJson, formDataJson }) {
       if (id === fieldId) {
         return {
           fieldId: fieldId,
-          value: (value = event.target.value),
+          value: event.target.value,
         };
       }
       return { fieldId: fieldId, value: value };
