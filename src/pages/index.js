@@ -59,7 +59,7 @@ export default function Home({ formConfigJson, formDataJson }) {
   );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const formConfigJson = await getFormElements();
   const formDataJson = await getFormData();
 
@@ -68,6 +68,5 @@ export const getStaticProps = async () => {
       formConfigJson,
       formDataJson,
     },
-    revalidate: 60 * 60 * 24, // 24 hours
   };
 };
