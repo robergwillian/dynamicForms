@@ -59,7 +59,7 @@ You can also load a new form config by uploading a JSON file in the following fo
 }
 
 ```
-* at the time of this writing the following field types are supported: TextField ( text, number, date ), and Select from MUI.
+* at the time of this writing the following field types are supported: TextField ( text, number ), Date-picker, and Select from MUI.
 
 ### Future changes and improvements:
 
