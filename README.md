@@ -16,9 +16,6 @@ You can edit the field values and save them ( This will send a post request to t
 
 You can also load a new form config by uploading a JSON file in the following format:
 
-* at the time of this writing the following field types are supported: TextField ( text, number, date ), and Select from MUI.
-
-
 ```bash
 {
   "id": 1,
@@ -56,3 +53,12 @@ You can also load a new form config by uploading a JSON file in the following fo
 }
 
 ```
+* at the time of this writing the following field types are supported: TextField ( text, number, date ), and Select from MUI.
+
+### Future changes and improvments:
+
+* Add unit tests
+* Add storybook to compose the components that would be used on the forms
+* Be able to save form configs that are uploaded via API along with its values
+* Save form values in a DB schema instead of writing directly to the data.json file
+* Implement drag and drop to reorder fields in the forms
